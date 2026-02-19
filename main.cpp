@@ -8,16 +8,25 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "ball.h"
+
 using namespace std;
+
+constexpr int screen_frequency = 144;
+constexpr int width            = 1920;
+constexpr int height           = 1080;
+
+const std::string project_name = "Cannon simulation";
 
 int main(int argc, char *argv[]) {
     
     // window initialization...
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::VideoMode mode(1920, 1080);
-    sf::RenderWindow window(mode, "Ball");
-    
+
+    sf::VideoMode mode(width, height);
+    sf::RenderWindow window(mode, project_name);
+    window.setFramerateLimit(screen_frequency);
 
     // notification messages...
     cout << "window started..." << endl;
