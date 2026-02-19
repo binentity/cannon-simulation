@@ -2,7 +2,7 @@
 
 Ball::Ball(sf::Vector2f pos, float angle, float speed) {
     shape.setRadius(8.f);
-    shape.setFillColor(sf::Color::Yellow);
+    shape.setFillColor(sf::Color::Black);
     shape.setOrigin(8.f, 8.f);
     shape.setPosition(pos);
 

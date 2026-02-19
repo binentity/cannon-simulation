@@ -38,8 +38,8 @@ int main(int argc, char *argv[]) {
     // static objects...
     sf::RectangleShape cannon(sf::Vector2f(50.0, 20.0)); 
     cannon.setFillColor(sf::Color::White);
-    cannon.setOrigin(0, 10);
     cannon.setPosition(50, 750);
+    cannon.setOrigin(0, -20);
 
     // window loop...
     while (window.isOpen()) {
@@ -59,9 +59,18 @@ int main(int argc, char *argv[]) {
         }
 
         // update logic for each entity...
-        for (auto& ball : balls) {
+        vector<Ball>::iterator iter =  balls.begin();
+        for (; iter != balls.end();) {
             // cout << dt << endl;
-            ball.update(dt);
+            iter->update(dt);
+
+            if (iter->shape.getPosition().x > WIDTH || 
+                iter->shape.getPosition().y > HEIGHT) {
+                cout << "balls vector erasing..." << endl;
+                balls.erase(iter);
+            } else {
+                ++iter;
+            }
         }
 
         // drawing entities...
