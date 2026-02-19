@@ -1,6 +1,6 @@
 #include "ball.h"
 
-Ball::Ball(/* args */) {
+Ball::Ball(sf::Vector2f pos, float angle, float speed) {
 }
 
 Ball::~Ball() {
