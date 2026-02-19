@@ -46,6 +46,17 @@ int main(int argc, char *argv[]) {
         float dt = clock.restart().asSeconds();
         sf::Event event;
 
+        sf::Vector2i mousePos   = sf::Mouse::getPosition();
+        sf::Vector2f cannonPos  = cannon.getPosition();
+
+        // NOTE: i need remember this method how it was computed from math...
+        float dx = mousePos.x - cannonPos.x;
+        float dy = mousePos.y - cannonPos.y;
+
+        float rotation = std::atan2(dy, dx) * 180.f / PI;
+
+        cannon.setRotation(rotation);
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
