@@ -12,11 +12,11 @@
 
 using namespace std;
 
-constexpr int screen_frequency = 144;
-constexpr int width            = 1920;
-constexpr int height           = 1080;
+constexpr int SCREEN_FREQUENCY = 144;
+constexpr int WIDTH            = 1920;
+constexpr int HEIGHT           = 1080;
 
-const std::string project_name = "Cannon simulation";
+const std::string PROJECT_NAME = "Cannon simulation";
 
 int main(int argc, char *argv[]) {
     
@@ -24,9 +24,13 @@ int main(int argc, char *argv[]) {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    sf::VideoMode mode(width, height);
-    sf::RenderWindow window(mode, project_name);
-    window.setFramerateLimit(screen_frequency);
+    sf::VideoMode mode(WIDTH, HEIGHT);
+    sf::RenderWindow window(mode, PROJECT_NAME);
+    window.setFramerateLimit(SCREEN_FREQUENCY);
+
+    // entities...
+    sf::Clock clock;
+    vector<Ball> balls;
 
     // notification messages...
     cout << "window started..." << endl;
@@ -39,6 +43,7 @@ int main(int argc, char *argv[]) {
 
     // window loop...
     while (window.isOpen()) {
+        float dt = clock.getElapsedTime().asSeconds();
         sf::Event event {};
 
         while (window.pollEvent(event)) {
