@@ -43,18 +43,33 @@ int main(int argc, char *argv[]) {
 
     // window loop...
     while (window.isOpen()) {
-        float dt = clock.getElapsedTime().asSeconds();
-        sf::Event event {};
+        float dt = clock.restart().asSeconds();
+        sf::Event event;
 
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+
+            if (event.type == sf::Event::KeyPressed && 
+                event.key.code == sf::Keyboard::Space) {
+                // cout << "space pressed..." << endl;
+                balls.emplace_back(cannon.getPosition(), 45.f, 800.f);
+            }
         }
 
+        // update logic for each entity...
+        for (auto& ball : balls) {
+            // cout << dt << endl;
+            ball.update(dt);
+        }
+
+        // drawing entities...
         window.clear(sf::Color::Blue);
         window.draw(cannon);
-
+        for (const auto& ball : balls) {
+            window.draw(ball.shape);
+        }
         window.display();
     }
 
