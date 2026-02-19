@@ -31,6 +31,12 @@ int main(int argc, char *argv[]) {
     // notification messages...
     cout << "window started..." << endl;
 
+    // static objects...
+    sf::RectangleShape cannon(sf::Vector2f(50.0, 20.0)); 
+    cannon.setFillColor(sf::Color::White);
+    cannon.setOrigin(0, 10);
+    cannon.setPosition(50, 750);
+
     // window loop...
     while (window.isOpen()) {
         sf::Event event {};
@@ -42,6 +48,7 @@ int main(int argc, char *argv[]) {
         }
 
         window.clear(sf::Color::Blue);
+        window.draw(cannon);
 
         window.display();
     }
