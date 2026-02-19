@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 
-add_executable(CannonSimulation main.cpp)
+add_executable(CannonSimulation main.cpp ball.h ball.cpp)
 
 target_link_libraries(CannonSimulation sfml-graphics sfml-window sfml-system)
