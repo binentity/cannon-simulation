@@ -7,6 +7,11 @@
 constexpr float PI      = 3.14159265f;
 constexpr float GRAVITY = 981.0f;
 
+constexpr float GROUND_Y = 950.0f;
+
+// Crutch... for simplicity
+constexpr float ELASTICITY = 0.6f;
+
 struct Ball {
     sf::CircleShape shape;
     sf::Vector2f velocity;

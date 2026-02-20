@@ -36,10 +36,10 @@ int main(int argc, char *argv[]) {
     cout << "window started..." << endl;
 
     // static objects...
-    sf::RectangleShape cannon(sf::Vector2f(50.0, 20.0)); 
+    sf::RectangleShape cannon(sf::Vector2f(50.f, 20.f)); 
     cannon.setFillColor(sf::Color::White);
     cannon.setPosition(50, 750);
-    cannon.setOrigin(0, -20);
+    cannon.setOrigin(40, 10);
 
     // window loop...
     while (window.isOpen()) {
