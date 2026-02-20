@@ -65,7 +65,10 @@ int main(int argc, char *argv[]) {
             if (event.type == sf::Event::MouseButtonPressed && 
                 event.mouseButton.button == sf::Mouse::Left) {
                 // cout << "mouse left button pressed..." << endl;
-                balls.emplace_back(cannon.getPosition(), 45.f, 800.f);
+                
+                // NOTE: Why so currentAngle is negative?
+                float currentAngle = -cannon.getRotation();
+                balls.emplace_back(cannon.getPosition(), currentAngle, 800.f);
             }
         }
 
