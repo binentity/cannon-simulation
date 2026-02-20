@@ -62,9 +62,9 @@ int main(int argc, char *argv[]) {
                 window.close();
             }
 
-            if (event.type == sf::Event::KeyPressed && 
-                event.key.code == sf::Keyboard::Space) {
-                // cout << "space pressed..." << endl;
+            if (event.type == sf::Event::MouseButtonPressed && 
+                event.mouseButton.button == sf::Mouse::Left) {
+                // cout << "mouse left button pressed..." << endl;
                 balls.emplace_back(cannon.getPosition(), 45.f, 800.f);
             }
         }
