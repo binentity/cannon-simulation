@@ -9,12 +9,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "ball.h"
+#include "cannon.h"
+#include "simulation.h"
 
 using namespace std;
 
-constexpr int SCREEN_FREQUENCY = 144;
-constexpr int WIDTH            = 1920;
-constexpr int HEIGHT           = 1080;
+const int SCREEN_FREQUENCY = 144;
+const int WIDTH            = 1920;
+const int HEIGHT           = 1080;
 
 const std::string PROJECT_NAME = "Cannon simulation";
 
@@ -24,77 +26,19 @@ int main(int argc, char *argv[]) {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    sf::VideoMode mode(WIDTH, HEIGHT);
-    sf::RenderWindow window(mode, PROJECT_NAME);
-    window.setFramerateLimit(SCREEN_FREQUENCY);
-
-    // entities...
-    sf::Clock clock;
-    vector<Ball> balls;
-
+    Simulation sim;
     // notification messages...
-    cout << "window started..." << endl;
+    // cout << "window started..." << endl;
+
+    sim.run();
 
     // static objects...
-    sf::RectangleShape cannon(sf::Vector2f(50.f, 20.f)); 
-    cannon.setFillColor(sf::Color::White);
-    cannon.setPosition(50, 750);
-    cannon.setOrigin(40, 10);
+    // sf::RectangleShape cannon(sf::Vector2f(50.f, 20.f)); 
+    // cannon.setFillColor(sf::Color::White);
+    // cannon.setPosition(50, 750);
+    // cannon.setOrigin(40, 10);
 
     // window loop...
-    while (window.isOpen()) {
-        float dt = clock.restart().asSeconds();
-        sf::Event event;
-
-        sf::Vector2i mousePos   = sf::Mouse::getPosition();
-        sf::Vector2f cannonPos  = cannon.getPosition();
-
-        // NOTE: i need remember this method how it was computed from math...
-        float dx = mousePos.x - cannonPos.x;
-        float dy = mousePos.y - cannonPos.y;
-
-        float rotation = std::atan2(dy, dx) * 180.f / PI;
-
-        cannon.setRotation(rotation);
-
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-
-            if (event.type == sf::Event::MouseButtonPressed && 
-                event.mouseButton.button == sf::Mouse::Left) {
-                // cout << "mouse left button pressed..." << endl;
-                
-                // NOTE: Why so currentAngle is negative?
-                float currentAngle = -cannon.getRotation();
-                balls.emplace_back(cannon.getPosition(), currentAngle, 800.f);
-            }
-        }
-
-        // update logic for each entity...
-        vector<Ball>::iterator iter =  balls.begin();
-        for (; iter != balls.end();) {
-            // cout << dt << endl;
-            iter->update(dt);
-
-            if (iter->shape.getPosition().x > WIDTH || 
-                iter->shape.getPosition().y > HEIGHT) {
-                cout << "balls vector erasing..." << endl;
-                balls.erase(iter);
-            } else {
-                ++iter;
-            }
-        }
-
-        // drawing entities...
-        window.clear(sf::Color::Blue);
-        window.draw(cannon);
-        for (const auto& ball : balls) {
-            window.draw(ball.shape);
-        }
-        window.display();
-    }
 
     return 0;
 }

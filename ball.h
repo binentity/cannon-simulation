@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
-constexpr float PI      = 3.14159265f;
+const float PI          = 3.14159265f;
 constexpr float GRAVITY = 981.0f;
 
 constexpr float GROUND_Y = 950.0f;
@@ -17,6 +17,7 @@ struct Ball {
     sf::Vector2f velocity;
 
     void update(float dt);
+    void draw(sf::RenderWindow& window) const { window.draw(shape); }
     Ball(sf::Vector2f pos, float angle, float speed);
     ~Ball();
 };
