@@ -8,7 +8,7 @@ Ball::Ball(sf::Vector2f pos, float angle, float speed) {
 
     float rad = angle * PI / 180,f;
     velocity.x = std::cos(rad) * speed;
-    velocity.y = -std::sin(rad) * speed;
+    velocity.y = std::sin(rad) * speed;
 }
 
 void Ball::update(float dt) {
@@ -22,8 +22,9 @@ void Ball::update(float dt) {
         velocity.y = -velocity.y * ELASTICITY;
 
         // Crutch...for simplicity
-        velocity.x *= 0.98f;
-        if (std::abs(velocity.y) < 10.f) velocity.y = 0.f;
+        velocity.x *= 0.98f;        
+        if (std::abs(velocity.y) < 10.f) 
+            velocity.y = 0.f;
     }
 }
 
