@@ -13,14 +13,14 @@ Simulation::Simulation() : window(sf::VideoMode(WIDTH, HEIGHT), PROJECT_NAME),
 void Simulation::run() {
     sf::Clock clock;
     while (window.isOpen()) {
-        float dt = clock.restart().asSeconds();
+        const float dt = clock.restart().asSeconds();
         processEvents();
         update(dt);
         render();
     }
 }
 
-void Simulation::update(float dt) {
+void Simulation::update(const float dt) {
 
     // NOTE: i dont like this point!
     cannon.update(sf::Mouse::getPosition(window), window);
@@ -29,7 +29,7 @@ void Simulation::update(float dt) {
         it->update(dt);
         
         // NOTE: Not actual for now...
-        if (false) it = balls.erase(it); 
+        // if (false) it = balls.erase(it);
         
         ++it;
     }

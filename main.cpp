@@ -1,15 +1,7 @@
-#include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-#include <sstream>
-#include <cmath>
 
 #include <SFML/Graphics.hpp>
 
-#include "ball.h"
-#include "cannon.h"
 #include "simulation.h"
 
 using namespace std;
@@ -17,6 +9,8 @@ using namespace std;
 const int SCREEN_FREQUENCY = 144;
 const int WIDTH            = 1920;
 const int HEIGHT           = 1080;
+
+const float PI             = 3.14159265f;
 
 const std::string PROJECT_NAME = "Cannon simulation";
 

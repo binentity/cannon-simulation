@@ -4,7 +4,14 @@ project(CannonSimulation)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
+# Windows path to your sfml lib folder.
+if (WIN32)
+    set(CMAKE_MODULE_PATH "C:/party/SFML/lib")
+    set(SFML_DIR "C:/party/SFML/lib/cmake/SFML")
+    include_directories("C:/party/SFML/include")
+endif ()
+
+find_package(SFML 2 COMPONENTS graphics window system REQUIRED)
 
 add_executable(
     CannonSimulation 

@@ -4,3 +4,6 @@ Makefile
 build/
 .git/
 notes/
+cmake-build-debug-mingw/
+cmake-build-debug/
+.idea/

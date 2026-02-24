@@ -2,9 +2,8 @@
 #define BALL_H
 
 #include <SFML/Graphics.hpp>
-#include <cmath>
 
-const float PI          = 3.14159265f;
+extern const float PI;
 constexpr float GRAVITY = 981.0f;
 
 constexpr float GROUND_Y = 950.0f;

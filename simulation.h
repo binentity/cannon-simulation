@@ -16,7 +16,6 @@ extern const int SCREEN_FREQUENCY;
 extern const std::string PROJECT_NAME;
 
 class Simulation {
-private:
     sf::RenderWindow    window;
     Cannon              cannon;
     std::vector<Ball>   balls;
