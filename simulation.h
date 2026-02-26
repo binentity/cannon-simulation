@@ -8,6 +8,7 @@
 
 #include "cannon.h"
 #include "ball.h"
+#include "platform.h"
 
 extern const int WIDTH;
 extern const int HEIGHT;
@@ -16,18 +17,19 @@ extern const int SCREEN_FREQUENCY;
 extern const std::string PROJECT_NAME;
 
 class Simulation {
-    sf::RenderWindow    window;
-    Cannon              cannon;
-    std::vector<Ball>   balls;
-    sf::RectangleShape  ground;
+    std::vector<Ball>       balls;
+    std::vector<Platform>   platforms;
+    sf::RenderWindow        window;
+    sf::RectangleShape      ground;
+    Cannon                  cannon;
 
     void render();
     void update(float dt);
     void processEvents();
 public:
     Simulation();
-    void run();    
-    ~Simulation();
+    void run();
+    ~Simulation() = default;
 };
 
 #endif

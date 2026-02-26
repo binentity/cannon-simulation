@@ -18,7 +18,7 @@ public:
     sf::Vector2f getPosition() const { return rect.getPosition(); }
     float getRotation() const { return rect.getRotation(); }
     
-    ~Cannon();
+    ~Cannon() = default;
 };
 
 #endif

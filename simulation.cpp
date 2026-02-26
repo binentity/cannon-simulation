@@ -8,6 +8,8 @@ Simulation::Simulation() : window(sf::VideoMode(WIDTH, HEIGHT), PROJECT_NAME),
     ground.setSize({1920.f, 50.f});
     ground.setFillColor(sf::Color(70, 70, 70));
     ground.setPosition(0, GROUND_Y);
+
+    platforms.emplace_back(sf::Vector2f(200, 500), sf::Vector2f(200, 20));
 }
 
 void Simulation::run() {
@@ -26,7 +28,7 @@ void Simulation::update(const float dt) {
     cannon.update(sf::Mouse::getPosition(window), window);
 
     for (auto it = balls.begin(); it != balls.end(); ) {
-        it->update(dt);
+        it->update(dt, platforms);
         
         // NOTE: Not actual for now...
         // if (false) it = balls.erase(it);
@@ -36,9 +38,12 @@ void Simulation::update(const float dt) {
 }
 
 void Simulation::processEvents() {
-    sf::Event event;
+    sf::Event event {};
     while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
+        if (event.type == sf::Event::Closed ||
+            event.type == sf::Event::KeyPressed &&
+            event.key.code == sf::Keyboard::Delete) {
+
             window.close();
         }
 
@@ -59,11 +64,12 @@ void Simulation::render() {
         ball.draw(window);
     }
 
+    for (const auto& platform : platforms) {
+        platform.draw(window);
+    }
+
     // NOTE: also not this...
     cannon.draw(window);
 
     window.display();
-}
-
-Simulation::~Simulation() {
 }

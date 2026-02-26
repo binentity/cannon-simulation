@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "platform.h"
+
 extern const float PI;
 constexpr float GRAVITY = 981.0f;
 
@@ -15,10 +17,10 @@ struct Ball {
     sf::CircleShape shape;
     sf::Vector2f velocity;
 
-    void update(float dt);
+    void update(float dt, const std::vector<Platform>& platforms);
     void draw(sf::RenderWindow& window) const { window.draw(shape); }
     Ball(sf::Vector2f pos, float angle, float speed);
-    ~Ball();
+    ~Ball() = default;
 };
 
 #endif

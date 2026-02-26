@@ -22,6 +22,8 @@ add_executable(
     simulation.cpp 
     cannon.h 
     cannon.cpp
+    platform.cpp
+    platform.h
 )
 
 target_link_libraries(CannonSimulation sfml-graphics sfml-window sfml-system)

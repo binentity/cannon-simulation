@@ -13,8 +13,8 @@ Cannon::Cannon(const sf::Vector2f pos) {
 void Cannon::update(const sf::Vector2i mousePos,
                     const sf::RenderWindow &window) {
 
-    // NOTE: it needs to understand...
-    sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
+    // NOTE: must be understand...
+    const sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
     
     // Just for xs...
     // std::cout << mousePos.x << std::endl;
@@ -28,7 +28,4 @@ void Cannon::update(const sf::Vector2i mousePos,
 
 void Cannon::draw(sf::RenderWindow &window) const {
     window.draw(rect);
-}
-
-Cannon::~Cannon() {
 }
