@@ -13,7 +13,6 @@ Cannon::Cannon(const sf::Vector2f pos) {
 void Cannon::update(const sf::Vector2i mousePos,
                     const sf::RenderWindow &window) {
 
-    // NOTE: must be understand...
     const sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
     
     // Just for xs...

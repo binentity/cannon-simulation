@@ -62,6 +62,7 @@ void Simulation::render() {
     
     for (const auto& ball : balls) {
         ball.draw(window);
+        ball.drawVelocityLine(window);
     }
 
     for (const auto& platform : platforms) {

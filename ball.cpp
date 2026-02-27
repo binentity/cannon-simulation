@@ -19,7 +19,7 @@ Ball::Ball(const sf::Vector2f pos, const float angle, const float speed) {
 void Ball::update(const float dt, const std::vector<Platform>& platforms) {
     velocity.y += GRAVITY * dt;
     shape.move(velocity * dt);
-    const sf::Vector2f nextPos = shape.getPosition() + (velocity * dt);
+    sf::Vector2f nextPos = shape.getPosition() + velocity * dt;
 
     for (const auto& platform : platforms) {
         sf::FloatRect ballBounds     = shape.getGlobalBounds();
@@ -30,13 +30,20 @@ void Ball::update(const float dt, const std::vector<Platform>& platforms) {
 
         if (ballBounds.intersects(platformBounds)) {
             std::cout << "Collision..." << std::endl;
+
+            if (velocity.y > 0.f && shape.getPosition().y > platformBounds.top) {
+                velocity.y = -velocity.y * ELASTICITY;
+                nextPos.y = platformBounds.top - shape.getRadius();
+            } else if (velocity.y < 0.f && shape.getPosition().y > platformBounds.top + platformBounds.height) {
+                velocity.y = -velocity.y * ELASTICITY;
+                nextPos.y = platformBounds.top + platformBounds.height + shape.getRadius();
+            }
         }
     }
 
     if (shape.getPosition().y + shape.getRadius() >= GROUND_Y) {
         shape.setPosition(shape.getPosition().x, GROUND_Y - shape.getRadius());
 
-        
         velocity.y = -velocity.y * ELASTICITY;
 
         // Crutch...for simplicity
@@ -44,4 +51,11 @@ void Ball::update(const float dt, const std::vector<Platform>& platforms) {
         if (std::abs(velocity.y) < 10.f) 
             velocity.y = 0.f;
     }
+}
+void Ball::drawVelocityLine(sf::RenderWindow &window) const {
+    sf::Vertex line[] = {
+        sf::Vertex(shape.getPosition(), sf::Color::Black),
+        sf::Vertex(shape.getPosition() + velocity * 0.1f, sf::Color::Black)
+    };
+    window.draw(line, 2, sf::Lines);
 }
