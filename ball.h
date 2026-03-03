@@ -18,6 +18,8 @@ struct Ball {
     sf::Vector2f velocity;
     sf::Vertex velocityLine[2];
 
+    float mass = 10.f;
+
     void update(float dt, const std::vector<Platform>& platforms);
     void updateVelocityLine();
     void drawVelocityLine(sf::RenderWindow& window) const;

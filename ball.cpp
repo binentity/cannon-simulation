@@ -6,7 +6,7 @@
 #include "platform.h"
 
 Ball::Ball(const sf::Vector2f pos, const float angle, const float speed) {
-    shape.setRadius(8.f);
+    shape.setRadius(20.f);
     shape.setFillColor(sf::Color::Black);
     shape.setOrigin(8.f, 8.f);
     shape.setPosition(pos);
@@ -29,7 +29,7 @@ void Ball::update(const float dt, const std::vector<Platform>& platforms) {
         ballBounds.top  = nextPos.y - shape.getRadius();
 
         if (ballBounds.intersects(platformBounds)) {
-            std::cout << "Collision..." << std::endl;
+            std::cout << "platform collision..." << std::endl;
 
             if (velocity.y > 0.f && shape.getPosition().y > platformBounds.top) {
                 velocity.y = -velocity.y * ELASTICITY;
@@ -53,8 +53,10 @@ void Ball::update(const float dt, const std::vector<Platform>& platforms) {
     }
 }
 void Ball::drawVelocityLine(sf::RenderWindow &window) const {
-    sf::Vertex line[] = {
+    const sf::Vertex line[] = {
         sf::Vertex(shape.getPosition(), sf::Color::Black),
+
+        // NOTE: Per one second...
         sf::Vertex(shape.getPosition() + velocity * 0.1f, sf::Color::Black)
     };
     window.draw(line, 2, sf::Lines);
