@@ -16,6 +16,10 @@ extern const int SCREEN_FREQUENCY;
 
 extern const std::string PROJECT_NAME;
 
+struct Contact {
+    sf::Vector2f v1, v2;
+};
+
 class Simulation {
     std::vector<Ball>       balls;
     std::vector<Platform>   platforms;
@@ -23,9 +27,12 @@ class Simulation {
     sf::RectangleShape      ground;
     Cannon                  cannon;
 
+    std::vector<Contact> contacts;
+
     void render();
     void update(float dt);
     void processEvents();
+    void resolveBallCollisions();
 public:
     Simulation();
     void run();
