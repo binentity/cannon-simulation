@@ -16,7 +16,20 @@ Ball::Ball(const sf::Vector2f pos, const float angle, const float speed) {
     velocity.y = std::sin(rad) * speed;
 }
 
-void Ball::update(const float dt, const std::vector<Platform>& platforms) {
+float Ball::getMass() const {
+    return mass;
+}
+
+sf::Vector2f Ball::getPosition() const {
+    return shape.getPosition();
+}
+
+float Ball::getRadius() const {
+    return shape.getRadius();
+}
+
+void Ball::update(const float dt, const std::vector<Platform> &platforms)
+{
     velocity.y += GRAVITY * dt;
     shape.move(velocity * dt);
     sf::Vector2f nextPos = shape.getPosition() + velocity * dt;
@@ -60,4 +73,8 @@ void Ball::drawVelocityLine(sf::RenderWindow &window) const {
         sf::Vertex(shape.getPosition() + velocity * 0.1f, sf::Color::Black)
     };
     window.draw(line, 2, sf::Lines);
+}
+
+void Ball::draw(sf::RenderWindow &window) const {
+    window.draw(shape);
 }

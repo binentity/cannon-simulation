@@ -29,6 +29,9 @@ class Simulation {
 
     std::vector<Contact> contacts;
 
+    float getDistance(const Ball& b1, const Ball& b2) const;
+    sf::Vector2f getDeltaPosition(const Ball& b1, const Ball& b2) const;
+
     void render();
     void update(float dt);
     void processEvents();
