@@ -28,6 +28,22 @@ float Ball::getRadius() const {
     return shape.getRadius();
 }
 
+sf::Vector2f Ball::getVelocity() const {
+    return velocity;
+}
+
+void Ball::addVelocity(const sf::Vector2f velocity) {
+    this->velocity += velocity;
+}
+
+void Ball::addPosition(const sf::Vector2f pos) {
+    setPosition(getPosition() + pos);
+}
+
+void Ball::setPosition(const sf::Vector2f pos) {
+    shape.setPosition(pos);
+}
+
 void Ball::update(const float dt, const std::vector<Platform> &platforms)
 {
     velocity.y += GRAVITY * dt;

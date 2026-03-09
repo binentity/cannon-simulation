@@ -24,6 +24,10 @@ public:
     float getMass() const;
     sf::Vector2f getPosition() const;
     float getRadius() const;
+    sf::Vector2f getVelocity() const;
+    void addVelocity(const sf::Vector2f velocity);
+    void addPosition(const sf::Vector2f pos);
+    void setPosition(const sf::Vector2f pos);
 
     void update(float dt, const std::vector<Platform>& platforms);
     void drawVelocityLine(sf::RenderWindow& window) const;

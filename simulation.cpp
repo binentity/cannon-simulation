@@ -82,25 +82,25 @@ void Simulation::resolveBallCollisions() {
                 // TODO: Should be draw
                 // contacts.push_back({b1.getPosition(), b2.getPosition()});
 
-                const float overlap = minDistance - distance;
                 const float totalMass = b1.getMass() + b2.getMass();
-
-                // TODO: Now i'll be adding the position of the each ball...
-                b1.shape.setPosition(b1.getPosition() + normal * (overlap * (b2.getMass() / totalMass)));
-                b2.shape.setPosition(b2.getPosition() - normal * (overlap * (b1.getMass() / totalMass)));
                 
-                sf::Vector2f relativeVeloсity = b1.velocity - b2.velocity;
+                const float overlap = minDistance - distance;
+                // Consider overlap of each ball.
+                b1.addPosition(normal * (overlap * (b2.getMass() / totalMass)));
+                b2.addPosition(-normal * (overlap * (b1.getMass() / totalMass)));
+                
+                const sf::Vector2f relativeVeloсity = b1.getVelocity() - b2.getVelocity();
                 const float velAlongNormal = relativeVeloсity.x * normal.x + relativeVeloсity.y * normal.y;
                 
-                std::cout << velAlongNormal << std::endl;
+                // std::cout << velAlongNormal << std::endl;
 
                 if (velAlongNormal < 0) {
-                    float j_impulse = -(1.0f + ELASTICITY ) / velAlongNormal;
-                    j_impulse /= (1.0f / b1.mass + 1.0f / b2.mass);
+                    float jImpulse = -(1.0f + ELASTICITY ) / velAlongNormal;
+                    jImpulse /= (1.0f / b1.getMass() + 1.0f / b2.getMass());
 
-                    const sf::Vector2f impulseVec = j_impulse * normal;
-                    b1.velocity += impulseVec / b1.getMass();
-                    b2.velocity -= impulseVec / b2.getMass();
+                    const sf::Vector2f impulseVec = jImpulse * normal;
+                    b1.addVelocity(impulseVec / b1.getMass());
+                    b2.addVelocity(-impulseVec / b2.getMass());
                 }
             }
         }
@@ -116,8 +116,7 @@ sf::Vector2f Simulation::getDeltaPosition(const Ball &b1, const Ball &b2) const 
     return b1.getPosition() - b2.getPosition();
 }
 
-void Simulation::render()
-{
+void Simulation::render() {
     window.clear(sf::Color(80, 80, 80));
     window.draw(ground);
     
