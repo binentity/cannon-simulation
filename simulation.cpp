@@ -11,7 +11,8 @@ Simulation::Simulation() : window(sf::VideoMode(WIDTH, HEIGHT), PROJECT_NAME),
     ground.setFillColor(sf::Color(70, 70, 70));
     ground.setPosition(0, GROUND_Y);
 
-    platforms.emplace_back(sf::Vector2f(200, 500), sf::Vector2f(200, 20));
+    platforms.emplace_back(sf::Vector2f(500, 750), sf::Vector2f(200, 200));
+    platforms.emplace_back(sf::Vector2f(1000, 200), sf::Vector2f(20, 500));
 }
 
 void Simulation::run() {
@@ -34,10 +35,13 @@ void Simulation::update(const float dt) {
     for (auto it = balls.begin(); it != balls.end(); ) {
         it->update(dt, platforms);
         
-        // NOTE: Not actual for now...
-        // if (false) it = balls.erase(it);
-        
-        ++it;
+        // NOTE: Small optimization...
+        if (it->getPosition().x > static_cast<float>(WIDTH) || it->getPosition().x < 0) {
+            balls.erase(it);
+            std::cout << "erasing balls..." << std::endl;
+        } else {
+            ++it;
+        } 
     }
 }
 
@@ -55,7 +59,7 @@ void Simulation::processEvents() {
             event.mouseButton.button == sf::Mouse::Left) {
 
             // NOTE: speed is const and not depends on events...
-            balls.emplace_back(cannon.getPosition(), cannon.getRotation(), 500.f);
+            balls.emplace_back(cannon.getPosition(), cannon.getRotation(), 1500.f);
         }
     }
 }
@@ -90,12 +94,13 @@ void Simulation::resolveBallCollisions() {
                 b2.addPosition(-normal * (overlap * (b1.getMass() / totalMass)));
                 
                 const sf::Vector2f relativeVeloсity = b1.getVelocity() - b2.getVelocity();
-                const float velAlongNormal = relativeVeloсity.x * normal.x + relativeVeloсity.y * normal.y;
+                const float velocityAlongNormal = relativeVeloсity.x * normal.x + 
+                                                relativeVeloсity.y * normal.y;
                 
-                // std::cout << velAlongNormal << std::endl;
+                // std::cout << velocityAlongNormal << std::endl;
 
-                if (velAlongNormal < 0) {
-                    float jImpulse = -(1.0f + ELASTICITY ) / velAlongNormal;
+                if (velocityAlongNormal < 0) {
+                    float jImpulse = -(1.0f + ELASTICITY ) / velocityAlongNormal;
                     jImpulse /= (1.0f / b1.getMass() + 1.0f / b2.getMass());
 
                     const sf::Vector2f impulseVec = jImpulse * normal;
