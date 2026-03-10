@@ -1,13 +1,13 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include <SFML/Graphics.hpp>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
-#include <SFML/Graphics.hpp>
 
-#include "cannon.h"
 #include "ball.h"
+#include "cannon.h"
 #include "platform.h"
 
 extern const int WIDTH;
@@ -21,11 +21,11 @@ struct Contact {
 };
 
 class Simulation {
-    std::vector<Ball>       balls;
-    std::vector<Platform>   platforms;
-    sf::RenderWindow        window;
-    sf::RectangleShape      ground;
-    Cannon                  cannon;
+    std::vector<Ball> balls;
+    std::vector<Platform> platforms;
+    sf::RenderWindow window;
+    sf::RectangleShape ground;
+    Cannon cannon;
 
     std::vector<Contact> contacts;
 
@@ -36,6 +36,7 @@ class Simulation {
     void update(float dt);
     void processEvents();
     void resolveBallCollisions();
+
 public:
     Simulation();
     void run();
